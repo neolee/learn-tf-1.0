@@ -2,8 +2,6 @@ import tensorflow as tf
 import numpy as np
 
 import PIL.Image
-from io import BytesIO
-from IPython.display import Image, display
 
 def DisplayFractal(a, fmt='jpeg'):
     """Display an array of iteration counts as a
@@ -16,40 +14,42 @@ def DisplayFractal(a, fmt='jpeg'):
     img[a==a.max()] = 0
     a = img
     a = np.uint8(np.clip(a, 0, 255))
-    f = BytesIO()
-    PIL.Image.fromarray(a).save(f, fmt)
-    display(Image(data=f.getvalue()))
+    
+    with open('/home/neo/tmp/mandelbrot.jpg', 'w') as f:
+        PIL.Image.fromarray(a).save(f, fmt)
 
-sess = tf.InteractiveSession()
+# main
+if __name__ == '__main__':
+    sess = tf.InteractiveSession()
 
-# Use NumPy to create a 2D array of complex numbers and freely mix them with TensorFlow
-Y, X = np.mgrid[-1.3:1.3:0.005, -2:1:0.005]
-Z = X+1j*Y
+    # Use NumPy to create a 2D array of complex numbers and freely mix them with TensorFlow
+    Y, X = np.mgrid[-1.3:1.3:0.005, -2:1:0.005]
+    Z = X+1j*Y
 
-xs = tf.constant(Z.astype(np.complex64))
-zs = tf.Variable(xs)
-ns = tf.Variable(tf.zeros_like(xs, tf.float32))
+    xs = tf.constant(Z.astype(np.complex64))
+    zs = tf.Variable(xs)
+    ns = tf.Variable(tf.zeros_like(xs, tf.float32))
 
-# TensorFlow REQUIRES explicitely initializing variables before using them
-tf.global_variables_initializer().run()
+    # TensorFlow REQUIRES explicitely initializing variables before using them
+    tf.global_variables_initializer().run()
 
-# Compute the new value z = z^2 + x
-zs_ = zs*zs + xs
+    # Compute the new value z = z^2 + x
+    zs_ = zs*zs + xs
 
-# Diverged with this new value?
-not_diverged = tf.abs(zs_) < 4
+    # Diverged with this new value?
+    not_diverged = tf.abs(zs_) < 4
 
-# Operation to update the zs and the iteration count
-# 
-# NOTE: We keep compute zs after they diverge! This is
-#       very wasteful! They are better, if a little less
-#       simple, way to do this.
-step = tf.group(
-    zs.assign(zs_),
-    ns.assign_add(tf.cast(not_diverged, tf.float32))
-)
+    # Operation to update the zs and the iteration count
+    # 
+    # NOTE: We keep compute zs after they diverge! This is
+    #       very wasteful! They are better, if a little less
+    #       simple, way to do this.
+    step = tf.group(
+        zs.assign(zs_),
+        ns.assign_add(tf.cast(not_diverged, tf.float32))
+    )
 
-# ... and run it for a couple hundred steps
-for i in range(200): step.run()
+    # ... and run it for a couple hundred steps
+    for i in range(200): step.run()
 
-DisplayFractal(ns.eval())
+    DisplayFractal(ns.eval())
