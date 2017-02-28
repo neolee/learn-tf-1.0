@@ -15,7 +15,7 @@ def DisplayFractal(a, fmt='jpeg'):
     a = img
     a = np.uint8(np.clip(a, 0, 255))
     
-    with open('/home/neo/tmp/mandelbrot.jpg', 'w') as f:
+    with open('tmp/mandelbrot.jpg', 'w') as f:
         PIL.Image.fromarray(a).save(f, fmt)
 
 # main
