@@ -1,5 +1,7 @@
 .DS_Store
 
 local.json
+kernel*.json
 
 tmp/
+logs/
