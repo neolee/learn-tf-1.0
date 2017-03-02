@@ -1,6 +1,6 @@
 .DS_Store
 
-local.json
+settings.json
 kernel*.json
 
 tmp/
