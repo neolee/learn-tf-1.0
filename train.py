@@ -8,7 +8,7 @@ logs_path = '/tmp/tensorflow_logs/example'
 # Model input and output
 with tf.name_scope('input'):
     # None -> batch size can be any size, 784 -> flattened mnist image
-    x = tf.placeholder(tf.float32, name="x-input") 
+    x = tf.placeholder(tf.float32, name="x-input")
     # target 10 output classes
     y = tf.placeholder(tf.float32, name="y-input")
 
@@ -31,18 +31,18 @@ with tf.name_scope('SGD'):
 # Trainer data & loop
 train = optimizer.minimize(loss)
 
-x_train = [1,2,3,4]
-y_train = [0,-1,-2,-3]
+x_train = [1, 2, 3, 4]
+y_train = [0, -1, -2, -3]
 
 init = tf.global_variables_initializer()
 sess = tf.Session()
-sess.run(init) # reset values
+sess.run(init)  # reset values
 
 summary_writer = tf.summary.FileWriter(logs_path, graph=tf.get_default_graph())
 
 for i in range(1000):
-  sess.run(train, {x:x_train, y:y_train})
+    sess.run(train, {x: x_train, y: y_train})
 
 # Evaluate training accuracy
-curr_W, curr_b, curr_loss  = sess.run([W, b, loss], {x:x_train, y:y_train})
-print("W: %s b: %s loss: %s"%(curr_W, curr_b, curr_loss))
+curr_W, curr_b, curr_loss = sess.run([W, b, loss], {x: x_train, y: y_train})
+print("W: %s b: %s loss: %s" % (curr_W, curr_b, curr_loss))
