@@ -1,0 +1,1 @@
+MNIST data will be downloaded and put in this folder.

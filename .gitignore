@@ -3,5 +3,6 @@
 settings.json
 kernel*.json
 
+data/mnist/*.gz
 tmp/
 logs/
