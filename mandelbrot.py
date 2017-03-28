@@ -4,7 +4,7 @@ import numpy as np
 import PIL.Image
 
 
-def DisplayFractal(a, fmt='jpeg'):
+def DrawFractal(a, fmt='jpeg'):
     """Display an array of iteration counts as a
     colorful picture of a fractal"""
     a_cyclic = (6.28 * a / 20.0).reshape(list(a.shape) + [1])
@@ -55,4 +55,4 @@ if __name__ == '__main__':
     for i in range(200):
         step.run()
 
-    DisplayFractal(ns.eval())
+    DrawFractal(ns.eval())
