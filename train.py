@@ -14,7 +14,7 @@ with tf.name_scope('input'):
 
 # Model parameters will change during training so we use tf.Variable
 with tf.name_scope("weights"):
-    W = tf.Variable([.3], tf.float32)
+    w = tf.Variable([.3], tf.float32)
 
 # Model bias
 with tf.name_scope("biases"):
@@ -22,7 +22,7 @@ with tf.name_scope("biases"):
 
 # Model
 with tf.name_scope('Model'):
-    linear_model = W * x + b
+    linear_model = w * x + b
 with tf.name_scope('Loss'):
     loss = tf.reduce_sum(tf.square(linear_model - y))
 with tf.name_scope('SGD'):
@@ -44,5 +44,5 @@ for i in range(1000):
     sess.run(train, {x: x_train, y: y_train})
 
 # Evaluate training accuracy
-curr_W, curr_b, curr_loss = sess.run([W, b, loss], {x: x_train, y: y_train})
-print("W: %s b: %s loss: %s" % (curr_W, curr_b, curr_loss))
+curr_w, curr_b, curr_loss = sess.run([w, b, loss], {x: x_train, y: y_train})
+print("W: %s b: %s loss: %s" % (curr_w, curr_b, curr_loss))
