@@ -1,3 +1,6 @@
 [submodule "submods/naked"]
 	path = submods/naked
 	url = https://github.com/jostmey/NakedTensor.git
+[submodule "submods/hvass"]
+	path = submods/hvass
+	url = git@github.com:thrillerist/TensorFlow-Tutorials.git
