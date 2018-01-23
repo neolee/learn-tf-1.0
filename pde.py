@@ -32,7 +32,7 @@ def simple_conv(x, k):
 
 def laplace(x):
     """Compute the 2D laplacian of an array"""
-    laplace_k = make_kernel([[0.5, 1.0, 0.5], [1.0, -6., 1.0], 
+    laplace_k = make_kernel([[0.5, 1.0, 0.5], [1.0, -6., 1.0],
                              [0.5, 1.0, 0.5]])
     return simple_conv(x, laplace_k)
 
@@ -74,3 +74,4 @@ for i in range(1000):
     # Step simulation
     step.run({eps: 0.03, damping: 0.04})
     draw_array(u.eval(), 'tmp/pde.jpg', range=[-0.1, 0.1])
+
